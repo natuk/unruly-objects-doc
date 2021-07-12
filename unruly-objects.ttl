@@ -2,6 +2,7 @@
 @prefix ns1: <http://www.w3.org/2004/02/skos/core#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix uro: <https://data.ligatus.org.uk/unruly-objects/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 uro: rdfs:label "None"@en ;
     ns1:prefLabel "None"@en .
@@ -14,6 +15,7 @@ uro: rdfs:label "None"@en ;
 <https://data.ligatus.org.uk/unruly-objects/thing/1> a crm:E22_Man-Made_Object ;
     rdfs:label "Artefact 1"@en ;
     crm:P2_has_type <https://data.ligatus.org.uk/unruly-objects/type/1> ;
+    crm:P43_has_dimension <https://data.ligatus.org.uk/unruly-objects/dimension/1> ;
     crm:P45_consists_of <https://data.ligatus.org.uk/unruly-objects/material/6> ;
     crm:P46_is_composed_of <https://data.ligatus.org.uk/unruly-objects/thing/4>,
         <https://data.ligatus.org.uk/unruly-objects/thing/5> ;
@@ -21,16 +23,6 @@ uro: rdfs:label "None"@en ;
         <https://data.ligatus.org.uk/unruly-objects/thing/3>,
         <https://data.ligatus.org.uk/unruly-objects/thing/6> ;
     ns1:prefLabel "Artefact 1"@en .
-
-<https://data.ligatus.org.uk/unruly-objects/type/13> a crm:E55_Type ;
-    rdfs:label "width"@en ;
-    ns1:exactMatch <https://data.ligatus.org.uk/unruly-objects/http://vocab.getty.edu/aat/300055647> ;
-    ns1:prefLabel "width"@en .
-
-<https://data.ligatus.org.uk/unruly-objects/type/14> a crm:E55_Type ;
-    rdfs:label "mm"@en ;
-    ns1:exactMatch <https://data.ligatus.org.uk/unruly-objects/http://vocab.getty.edu/aat/300379097> ;
-    ns1:prefLabel "mm"@en .
 
 <https://data.ligatus.org.uk/unruly-objects/type/3> a crm:E55_Type ;
     rdfs:label "carving"@en ;
@@ -46,6 +38,13 @@ uro: rdfs:label "None"@en ;
     rdfs:label "drill"@en ;
     ns1:exactMatch <https://data.ligatus.org.uk/unruly-objects/http://vocab.getty.edu/aat/300024685> ;
     ns1:prefLabel "drill"@en .
+
+<https://data.ligatus.org.uk/unruly-objects/dimension/1> a crm:E54_Dimension ;
+    rdfs:label "Width of Artefact 1"@en ;
+    crm:P2_has_type <https://data.ligatus.org.uk/unruly-objects/type/13> ;
+    crm:P90_has_value 1.5e+01 ;
+    crm:P91_has_unit <https://data.ligatus.org.uk/unruly-objects/type/14> ;
+    ns1:prefLabel "Width of Artefact 1"@en .
 
 <https://data.ligatus.org.uk/unruly-objects/material/11> a crm:E57_Material ;
     rdfs:label "plastic"@en ;
@@ -102,6 +101,16 @@ uro: rdfs:label "None"@en ;
     rdfs:label "SARS-CoV-2 RNA (plasmic construct)"@en ;
     ns1:exactMatch <https://data.ligatus.org.uk/unruly-objects/https://www.ncbi.nlm.nih.gov/nuccore/MT299802> ;
     ns1:prefLabel "SARS-CoV-2 RNA (plasmic construct)"@en .
+
+<https://data.ligatus.org.uk/unruly-objects/type/13> a crm:E55_Type ;
+    rdfs:label "width"@en ;
+    ns1:exactMatch <https://data.ligatus.org.uk/unruly-objects/http://vocab.getty.edu/aat/300055647> ;
+    ns1:prefLabel "width"@en .
+
+<https://data.ligatus.org.uk/unruly-objects/type/14> a crm:E55_Type ;
+    rdfs:label "mm"@en ;
+    ns1:exactMatch <https://data.ligatus.org.uk/unruly-objects/http://vocab.getty.edu/aat/300379097> ;
+    ns1:prefLabel "mm"@en .
 
 <https://data.ligatus.org.uk/unruly-objects/type/2> a crm:E55_Type ;
     rdfs:label "carvings"@en ;

@@ -38,7 +38,7 @@ for type in types.iloc:
         globaltypeuri = URIRef(URO[type["global type uri"]])
         graph.add((localtypeuri, SKOS.exactMatch, globaltypeuri))
 
-#things
+# things
 # read things
 things = read_ods("unruly-objects-statements.ods", "things")
 for thing in things.iloc:
@@ -64,6 +64,28 @@ for thing in things.iloc:
         elif column=="material uri":
             if thing[column] is not None and thing[column] != "#N/A":
                 graph.add((thinguri, CRM["P45_consists_of"], URIRef(URO[thing["material uri"]])))
+        elif column=="dimension uri":
+            if thing[column] is not None and thing[column] != "#N/A":
+                graph.add((thinguri, CRM["P43_has_dimension"], URIRef(URO[thing["dimension uri"]])))
+
+# dimensions
+# read dimensions
+dimensions = read_ods("unruly-objects-statements.ods", "dimensions")
+for dimension in dimensions.iloc:
+    dimensionuri = URIRef(URO[dimension["dimension uri"]])
+    graph.add((dimensionuri, RDF.type, CRM["E54_Dimension"]))
+    graph.add((dimensionuri, SKOS.prefLabel, Literal(dimension["dimension label"], lang="en")))
+    graph.add((dimensionuri, RDFS.label, Literal(dimension["dimension label"], lang="en")))
+    for column in dimensions:
+        if column=="type uri":
+            if dimension[column] is not None and dimension[column] != "#N/A":
+                graph.add((dimensionuri, CRM["P2_has_type"], URIRef(URO[dimension["type uri"]])))
+        elif column=="value":
+            if dimension[column] is not None and dimension[column] != "#N/A":
+                graph.add((dimensionuri, CRM["P90_has_value"], Literal(dimension[column])))
+        elif column=="unit uri":
+            if dimension[column] is not None and dimension[column] != "#N/A":
+                graph.add((dimensionuri, CRM["P91_has_unit"], URIRef(URO[dimension["unit uri"]])))
 
 #things = things.values.tolist()
 

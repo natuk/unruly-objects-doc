@@ -1,0 +1,119 @@
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix ns1: <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix uro: <https://data.ligatus.org.uk/unruly-objects/> .
+
+uro: rdfs:label "None"@en ;
+    ns1:prefLabel "None"@en .
+
+<https://data.ligatus.org.uk/unruly-objects/material/10> a crm:E57_Material ;
+    rdfs:label "copper"@en ;
+    ns1:exactMatch <https://data.ligatus.org.uk/unruly-objects/http://vocab.getty.edu/aat/300011020> ;
+    ns1:prefLabel "copper"@en .
+
+<https://data.ligatus.org.uk/unruly-objects/thing/1> a crm:E22_Man-Made_Object ;
+    rdfs:label "Artefact 1"@en ;
+    crm:P2_has_type <https://data.ligatus.org.uk/unruly-objects/type/1> ;
+    crm:P45_consists_of <https://data.ligatus.org.uk/unruly-objects/material/6> ;
+    crm:P46_is_composed_of <https://data.ligatus.org.uk/unruly-objects/thing/4>,
+        <https://data.ligatus.org.uk/unruly-objects/thing/5> ;
+    crm:P56_bears_feature <https://data.ligatus.org.uk/unruly-objects/thing/2>,
+        <https://data.ligatus.org.uk/unruly-objects/thing/3>,
+        <https://data.ligatus.org.uk/unruly-objects/thing/6> ;
+    ns1:prefLabel "Artefact 1"@en .
+
+<https://data.ligatus.org.uk/unruly-objects/type/13> a crm:E55_Type ;
+    rdfs:label "width"@en ;
+    ns1:exactMatch <https://data.ligatus.org.uk/unruly-objects/http://vocab.getty.edu/aat/300055647> ;
+    ns1:prefLabel "width"@en .
+
+<https://data.ligatus.org.uk/unruly-objects/type/14> a crm:E55_Type ;
+    rdfs:label "mm"@en ;
+    ns1:exactMatch <https://data.ligatus.org.uk/unruly-objects/http://vocab.getty.edu/aat/300379097> ;
+    ns1:prefLabel "mm"@en .
+
+<https://data.ligatus.org.uk/unruly-objects/type/3> a crm:E55_Type ;
+    rdfs:label "carving"@en ;
+    ns1:exactMatch <https://data.ligatus.org.uk/unruly-objects/http://vocab.getty.edu/aat/300053149> ;
+    ns1:prefLabel "carving"@en .
+
+<https://data.ligatus.org.uk/unruly-objects/type/4> a crm:E55_Type ;
+    rdfs:label "sculpting"@en ;
+    ns1:exactMatch <https://data.ligatus.org.uk/unruly-objects/http://vocab.getty.edu/aat/300264383> ;
+    ns1:prefLabel "sculpting"@en .
+
+<https://data.ligatus.org.uk/unruly-objects/type/5> a crm:E55_Type ;
+    rdfs:label "drill"@en ;
+    ns1:exactMatch <https://data.ligatus.org.uk/unruly-objects/http://vocab.getty.edu/aat/300024685> ;
+    ns1:prefLabel "drill"@en .
+
+<https://data.ligatus.org.uk/unruly-objects/material/11> a crm:E57_Material ;
+    rdfs:label "plastic"@en ;
+    ns1:exactMatch <https://data.ligatus.org.uk/unruly-objects/http://vocab.getty.edu/aat/300014570> ;
+    ns1:prefLabel "plastic"@en .
+
+<https://data.ligatus.org.uk/unruly-objects/material/15> a crm:E57_Material ;
+    rdfs:label "agar"@en ;
+    ns1:exactMatch <https://data.ligatus.org.uk/unruly-objects/http://vocab.getty.edu/aat/300130954> ;
+    ns1:prefLabel "agar"@en .
+
+<https://data.ligatus.org.uk/unruly-objects/material/6> a crm:E57_Material ;
+    rdfs:label "marble"@en ;
+    ns1:exactMatch <https://data.ligatus.org.uk/unruly-objects/http://vocab.getty.edu/aat/300011443> ;
+    ns1:prefLabel "marble"@en .
+
+<https://data.ligatus.org.uk/unruly-objects/material/8> a crm:E57_Material ;
+    rdfs:label "acrylic"@en ;
+    ns1:prefLabel "acrylic"@en .
+
+<https://data.ligatus.org.uk/unruly-objects/thing/2> a crm:E25_Man-Made_Feature ;
+    rdfs:label "Carved features of Artefact 1"@en ;
+    crm:P2_has_type <https://data.ligatus.org.uk/unruly-objects/type/2> ;
+    ns1:prefLabel "Carved features of Artefact 1"@en .
+
+<https://data.ligatus.org.uk/unruly-objects/thing/3> a crm:E25_Man-Made_Feature ;
+    rdfs:label "Paint feature of Artefact 1"@en ;
+    crm:P2_has_type <https://data.ligatus.org.uk/unruly-objects/type/7> ;
+    crm:P45_consists_of <https://data.ligatus.org.uk/unruly-objects/material/8> ;
+    ns1:prefLabel "Paint feature of Artefact 1"@en .
+
+<https://data.ligatus.org.uk/unruly-objects/thing/4> a crm:E22_Man-Made_Object ;
+    rdfs:label "RFID tag of Artifact 1"@en ;
+    crm:P2_has_type <https://data.ligatus.org.uk/unruly-objects/type/9> ;
+    crm:P45_consists_of <https://data.ligatus.org.uk/unruly-objects/material/11> ;
+    ns1:prefLabel "RFID tag of Artifact 1"@en .
+
+<https://data.ligatus.org.uk/unruly-objects/thing/5> a crm:E20_Biological_Object ;
+    rdfs:label "Sample of SARS-CoV-2"@en ;
+    crm:P2_has_type <https://data.ligatus.org.uk/unruly-objects/type/12> ;
+    ns1:prefLabel "Sample of SARS-CoV-2"@en .
+
+<https://data.ligatus.org.uk/unruly-objects/thing/6> a crm:E25_Man-Made_Feature ;
+    rdfs:label "Gel agent on artefact 1"@en ;
+    crm:P2_has_type <https://data.ligatus.org.uk/unruly-objects/material/15> ;
+    ns1:prefLabel "Gel agent on artefact 1"@en .
+
+<https://data.ligatus.org.uk/unruly-objects/type/1> a crm:E55_Type ;
+    rdfs:label "sculpture"@en ;
+    ns1:exactMatch <https://data.ligatus.org.uk/unruly-objects/http://vocab.getty.edu/aat/300047090> ;
+    ns1:prefLabel "sculpture"@en .
+
+<https://data.ligatus.org.uk/unruly-objects/type/12> a crm:E55_Type ;
+    rdfs:label "SARS-CoV-2 RNA (plasmic construct)"@en ;
+    ns1:exactMatch <https://data.ligatus.org.uk/unruly-objects/https://www.ncbi.nlm.nih.gov/nuccore/MT299802> ;
+    ns1:prefLabel "SARS-CoV-2 RNA (plasmic construct)"@en .
+
+<https://data.ligatus.org.uk/unruly-objects/type/2> a crm:E55_Type ;
+    rdfs:label "carvings"@en ;
+    ns1:exactMatch <https://data.ligatus.org.uk/unruly-objects/http://vocab.getty.edu/aat/300047203> ;
+    ns1:prefLabel "carvings"@en .
+
+<https://data.ligatus.org.uk/unruly-objects/type/7> a crm:E55_Type ;
+    rdfs:label "paintings"@en ;
+    ns1:exactMatch <https://data.ligatus.org.uk/unruly-objects/http://vocab.getty.edu/aat/300033618> ;
+    ns1:prefLabel "paintings"@en .
+
+<https://data.ligatus.org.uk/unruly-objects/type/9> a crm:E55_Type ;
+    rdfs:label "RFID tag"@en ;
+    ns1:prefLabel "RFID tag"@en .
+

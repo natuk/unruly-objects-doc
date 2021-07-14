@@ -1,16 +1,7 @@
 @prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
 @prefix ns1: <http://www.w3.org/2004/02/skos/core#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix uro: <https://data.ligatus.org.uk/unruly-objects/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-
-uro: rdfs:label "None"@en ;
-    ns1:prefLabel "None"@en .
-
-<https://data.ligatus.org.uk/unruly-objects/material/10> a crm:E57_Material ;
-    rdfs:label "copper"@en ;
-    ns1:exactMatch <https://data.ligatus.org.uk/unruly-objects/http://vocab.getty.edu/aat/300011020> ;
-    ns1:prefLabel "copper"@en .
 
 <https://data.ligatus.org.uk/unruly-objects/thing/1> a crm:E22_Man-Made_Object ;
     rdfs:label "Artefact 1"@en ;
@@ -46,6 +37,11 @@ uro: rdfs:label "None"@en ;
     crm:P91_has_unit <https://data.ligatus.org.uk/unruly-objects/type/14> ;
     ns1:prefLabel "Width of Artefact 1"@en .
 
+<https://data.ligatus.org.uk/unruly-objects/material/10> a crm:E57_Material ;
+    rdfs:label "copper"@en ;
+    ns1:exactMatch <https://data.ligatus.org.uk/unruly-objects/http://vocab.getty.edu/aat/300011020> ;
+    ns1:prefLabel "copper"@en .
+
 <https://data.ligatus.org.uk/unruly-objects/material/11> a crm:E57_Material ;
     rdfs:label "plastic"@en ;
     ns1:exactMatch <https://data.ligatus.org.uk/unruly-objects/http://vocab.getty.edu/aat/300014570> ;
@@ -79,7 +75,8 @@ uro: rdfs:label "None"@en ;
 <https://data.ligatus.org.uk/unruly-objects/thing/4> a crm:E22_Man-Made_Object ;
     rdfs:label "RFID tag of Artifact 1"@en ;
     crm:P2_has_type <https://data.ligatus.org.uk/unruly-objects/type/9> ;
-    crm:P45_consists_of <https://data.ligatus.org.uk/unruly-objects/material/11> ;
+    crm:P45_consists_of <https://data.ligatus.org.uk/unruly-objects/material/10>,
+        <https://data.ligatus.org.uk/unruly-objects/material/11> ;
     ns1:prefLabel "RFID tag of Artifact 1"@en .
 
 <https://data.ligatus.org.uk/unruly-objects/thing/5> a crm:E20_Biological_Object ;

@@ -1,0 +1,21 @@
+---
+layout: default
+---
+<div>URI: {{ page.uri }}</div>
+<h1 style="background-color: #{{ page.classcolour }}">Label: {{ page.dimensionlabel }}</h1>
+<div>CRM class: {{ page.crmtype }}</div>
+<div>type of dimension (crm:P2 has type): <a href="{{ page.type }}">
+{% for type in site.types %}
+  {% if type.uri == page.type %}
+    {{ type.locallabel }}
+  {% endif %}
+{% endfor %}
+</a></div>
+<div>value of dimension (crm:P90 has value): {{ page.value }}</div>
+<div>unit of dimension (crm:P91 has unit): <a href="{{ page.unit }}">
+{% for type in site.types %}
+  {% if type.uri == page.unit %}
+    {{ type.locallabel }}
+  {% endif %}
+{% endfor %}
+</a></div>

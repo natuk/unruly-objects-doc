@@ -6,6 +6,7 @@ from graphviz import Digraph
 from namespaces import apply_namespaces, get_namespace
 from crmviz.visualise import visualise_graph
 from pandas_ods_reader import read_ods
+import yaml
 
 graph = Graph() # graph for the dataset
 docgraph = Graph() # graph for the documentation drawing
@@ -23,71 +24,152 @@ CRM = get_namespace(graph, 'crm')
 # read types and materials
 types = read_ods("unruly-objects-statements.ods", "types")
 for type in types.iloc:
-    localtypeuri = URIRef(URO[type["local type uri"]])
-    # explaining this: URIRef(URO[type["local type uri"]])
-    # type["local type uri"] gives the local uri without the base url as shown on the spreadsheet
-    # URO[type["local type uri"]] gives the uri with the base url
-    # URIRef(URO[type["local type uri"]]) makes it into a URI object for rdflib
-    if type["CRM class"] == "E55":
-        graph.add((localtypeuri, RDF.type, CRM["E55_Type"]))
-    elif type["CRM class"] == "E57":
-        graph.add((localtypeuri, RDF.type, CRM["E57_Material"]))
-    graph.add((localtypeuri, SKOS.prefLabel, Literal(type["local label"], lang="en")))
-    graph.add((localtypeuri, RDFS.label, Literal(type["local label"], lang="en")))
-    if type["global type uri"] is not None and type["global type uri"] != "#N/A":
-        globaltypeuri = URIRef(URO[type["global type uri"]])
-        graph.add((localtypeuri, SKOS.exactMatch, globaltypeuri))
+    if type["local type uri"] is not None and type["local type uri"] != "#N/A":
+        #md = '---\nlayout: type\nclasscolour: FAB565\n' # prepare the markdown for Jekyll
+        yar = {"layout":"type","classcolour":"FAB565"} #prepare the YAML array to dump at the top of the markdown file
+        localtypeuri = URIRef(URO[type["local type uri"]])
+        # explaining this: URIRef(URO[type["local type uri"]])
+        # type["local type uri"] gives the local uri without the base url as shown on the spreadsheet
+        # URO[type["local type uri"]] gives the uri with the base url
+        # URIRef(URO[type["local type uri"]]) makes it into a URI object for rdflib
+        #md += 'uri: ' + str(localtypeuri) + '\n'
+        yar["uri"] = str(localtypeuri)
+        if type["CRM class"] == "E55":
+            graph.add((localtypeuri, RDF.type, CRM["E55_Type"]))
+            #md += 'crmtype: E55 Type\n'
+            yar["crmtype"] = "E55 Type"
+        elif type["CRM class"] == "E57":
+            graph.add((localtypeuri, RDF.type, CRM["E57_Material"]))
+            #md += 'crmtype: E57 Material\n'
+            yar["crmtype"] = "E57 Material"
+        graph.add((localtypeuri, SKOS.prefLabel, Literal(type["local label"], lang="en")))
+        graph.add((localtypeuri, RDFS.label, Literal(type["local label"], lang="en")))
+        #md += 'locallabel: ' + type["local label"] + '\n'
+        yar["locallabel"] = type["local label"]
+        if type["global type uri"] is not None and type["global type uri"] != "#N/A":
+            globaltypeuri = URIRef(URO[type["global type uri"]])
+            graph.add((localtypeuri, SKOS.exactMatch, globaltypeuri))
+            #md += 'globaluri: ' + str(globaltypeuri) + '\n'
+            yar["globaluri"] = str(globaltypeuri)
+            #md += 'globallabel: ' + type["global label"] + '\n'
+            yar["globallabel"] = type["global label"]
+        md = '---\n'
+        md += yaml.dump(yar)
+        md += '---\n'
+        # writing the file for jekyll website
+        with open("docs/_types/" + type["local type uri"].replace("/", "-") + ".md", "w") as f:
+            f.write(md)
 
 # things
 # read things
 things = read_ods("unruly-objects-statements.ods", "things")
 for thing in things.iloc:
-    thinguri = URIRef(URO[thing["thing uri"]])
-    if thing["CRM class"] == "E22":
-        graph.add((thinguri, RDF.type, CRM["E22_Man-Made_Object"]))
-    elif thing["CRM class"] == "E25":
-        graph.add((thinguri, RDF.type, CRM["E25_Man-Made_Feature"]))
-    elif thing["CRM class"] == "E20":
-        graph.add((thinguri, RDF.type, CRM["E20_Biological_Object"]))
-    graph.add((thinguri, SKOS.prefLabel, Literal(thing["thing label"], lang="en")))
-    graph.add((thinguri, RDFS.label, Literal(thing["thing label"], lang="en")))
-    for column in things:
-        if column=="part of":
-            if thing[column] is not None and thing[column] != "#N/A":
-                if thing["CRM class"] == "E22" or thing["CRM class"] == "E20":
-                    graph.add((URIRef(URO[thing["part of"]]), CRM["P46_is_composed_of"], thinguri)) #URIRef(URO[thing["part of"]]) gives the URI of the parent
-                elif thing["CRM class"] == "E25" or thing["CRM class"] == "E26":
-                    graph.add((URIRef(URO[thing["part of"]]), CRM["P56_bears_feature"], thinguri)) #URIRef(URO[thing["part of"]]) gives the URI of the parent
-        elif column=="type uri":
-            if thing[column] is not None and thing[column] != "#N/A":
-                graph.add((thinguri, CRM["P2_has_type"], URIRef(URO[thing["type uri"]])))
-        elif column=="material uri":
-            if thing[column] is not None and thing[column] != "#N/A":
-                graph.add((thinguri, CRM["P45_consists_of"], URIRef(URO[thing["material uri"]])))
-        elif column=="dimension uri":
-            if thing[column] is not None and thing[column] != "#N/A":
-                graph.add((thinguri, CRM["P43_has_dimension"], URIRef(URO[thing["dimension uri"]])))
+    if thing["thing uri"] is not None and thing["thing uri"] != "#N/A":
+        #md = '---\nlayout: thing\nclasscolour: E1BA9C\n'  # prepare the markdown for Jekyll
+        yar = {"layout":"thing","classcolour":"E1BA9C"}
+        thinguri = URIRef(URO[thing["thing uri"]])
+        #md += 'uri: ' + str(thinguri) + '\n'
+        yar["uri"] = str(thinguri)
+        if thing["CRM class"] == "E22":
+            graph.add((thinguri, RDF.type, CRM["E22_Man-Made_Object"]))
+            #md += 'crmtype: E22 Human-Made Object\n'
+            yar["crmtype"] = "E22 Human-Made Object"
+        elif thing["CRM class"] == "E25":
+            graph.add((thinguri, RDF.type, CRM["E25_Man-Made_Feature"]))
+            #md += 'crmtype: E25 Human-Made Feature\n'
+            yar["crmtype"] = "E25 Human-Made Feature"
+        elif thing["CRM class"] == "E20":
+            graph.add((thinguri, RDF.type, CRM["E20_Biological_Object"]))
+            #md += 'crmtype: E20 Biological Object\n'
+            yar["crmtype"] = "E20 Biological Object"
+        graph.add((thinguri, SKOS.prefLabel, Literal(thing["thing label"], lang="en")))
+        graph.add((thinguri, RDFS.label, Literal(thing["thing label"], lang="en")))
+        #md += 'thinglabel: ' + thing["thing label"] + '\n'
+        yar["thinglabel"] = thing["thing label"]
+        # we have multiple types, materials and dimensions for objects therefore we need arrays before adding to the dictionary
+        yartypes = []
+        yarmaterials = []
+        yardimensions = []
+        for column in things:
+            if column.startswith("part of"): #using the function starts with instead of == because panda automatically adds a ".#" to the labels for repeating fields
+                if thing[column] is not None and thing[column] != "#N/A":
+                    if thing["CRM class"] == "E22" or thing["CRM class"] == "E20":
+                        graph.add((URIRef(URO[thing[column]]), CRM["P46_is_composed_of"], thinguri)) #URIRef(URO[thing["part of"]]) gives the URI of the parent
+                        #md += 'composedof: ' + str(URO[thing[column]]) + '\n'
+                        yar["composedof"] = str(URO[thing[column]])
+                    elif thing["CRM class"] == "E25" or thing["CRM class"] == "E26":
+                        graph.add((URIRef(URO[thing[column]]), CRM["P56_bears_feature"], thinguri)) #URIRef(URO[thing["part of"]]) gives the URI of the parent
+                        #md += 'bearsfeature: ' + str(URO[thing[column]]) + '\n'
+                        yar["bearsfeature"] = str(URO[thing[column]])
+            elif column.startswith("type uri"):
+                if thing[column] is not None and thing[column] != "#N/A":
+                    graph.add((thinguri, CRM["P2_has_type"], URIRef(URO[thing[column]])))
+                    #md += 'type: ' + str(URO[thing[column]]) + '\n'
+                    yartypes.append(str(URO[thing[column]]))
+            elif column.startswith("material uri"):
+                if thing[column] is not None and thing[column] != "#N/A":
+                    graph.add((thinguri, CRM["P45_consists_of"], URIRef(URO[thing[column]])))
+                    #md += 'material: ' + str(URO[thing[column]]) + '\n'
+                    yarmaterials.append(str(URO[thing[column]]))
+            elif column.startswith("dimension uri"):
+                if thing[column] is not None and thing[column] != "#N/A":
+                    graph.add((thinguri, CRM["P43_has_dimension"], URIRef(URO[thing[column]])))
+                    #md += 'dimension: ' + str(URO[thing[column]]) + '\n'
+                    yardimensions.append(str(URO[thing[column]]))
+        # add arrays to the dictionary
+        if len(yartypes) > 0:
+            yar["type"] = yartypes
+        if len(yarmaterials) > 0:
+            yar["material"] = yarmaterials
+        if len(yardimensions) > 0:
+            yar["dimension"] = yardimensions
+        # prepare the markdown file
+        md = '---\n'
+        md += yaml.dump(yar)
+        md += '---\n'
+        # writing the file for jekyll website
+        with open("docs/_things/" + thing["thing uri"].replace("/", "-") + ".md", "w") as f:
+            f.write(md)
+    #things = things.values.tolist()
 
 # dimensions
 # read dimensions
 dimensions = read_ods("unruly-objects-statements.ods", "dimensions")
 for dimension in dimensions.iloc:
+    #md = '---\nlayout: dimension\nclasscolour: FFF\n'  # prepare the markdown for Jekyll
+    yar = {"layout":"dimension","classcolour":"FFF"}
     dimensionuri = URIRef(URO[dimension["dimension uri"]])
+    #md += 'uri: ' + str(dimensionuri) + '\n'
+    yar["uri"] = str(dimensionuri)
     graph.add((dimensionuri, RDF.type, CRM["E54_Dimension"]))
+    #md += 'crmtype: E54 Dimension\n'
+    yar["crmtype"] = "E54 Dimension"
     graph.add((dimensionuri, SKOS.prefLabel, Literal(dimension["dimension label"], lang="en")))
     graph.add((dimensionuri, RDFS.label, Literal(dimension["dimension label"], lang="en")))
+    #md += 'dimensionlabel: ' + dimension["dimension label"] + '\n'
+    yar["dimensionlabel"] = dimension["dimension label"]
     for column in dimensions:
         if column=="type uri":
             if dimension[column] is not None and dimension[column] != "#N/A":
                 graph.add((dimensionuri, CRM["P2_has_type"], URIRef(URO[dimension["type uri"]])))
+                #md += 'type: ' + str(URO[dimension["type uri"]]) + '\n'
+                yar["type"] = str(URO[dimension[column]])
         elif column=="value":
             if dimension[column] is not None and dimension[column] != "#N/A":
                 graph.add((dimensionuri, CRM["P90_has_value"], Literal(dimension[column])))
+                #md += 'value: ' + str(dimension[column]) + '\n'
+                yar["value"] = str(dimension[column])
         elif column=="unit uri":
             if dimension[column] is not None and dimension[column] != "#N/A":
                 graph.add((dimensionuri, CRM["P91_has_unit"], URIRef(URO[dimension["unit uri"]])))
-
-#things = things.values.tolist()
+                #md += 'unit: ' + str(URO[dimension["unit uri"]]) + '\n'
+                yar["unit"] = str(URO[dimension[column]])
+    md = '---\n'
+    md += yaml.dump(yar)
+    md += '---\n'
+    # writing the file for jekyll website
+    with open("docs/_dimensions/" + dimension["dimension uri"].replace("/", "-") + ".md", "w") as f:
+        f.write(md)
 
 # documentation drawing
 dot = visualise_graph(graph, 'Unruly objects graph',"")

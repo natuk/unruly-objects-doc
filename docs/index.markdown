@@ -4,3 +4,35 @@
 
 layout: home
 ---
+
+# Unruly Objects
+
+## Things
+
+<ul>
+  {% for thing in site.things %}
+    <li>
+      <a href="{{ thing.url }}">{{ thing.thinglabel }}</a>
+    </li>
+  {% endfor %}
+</ul>
+
+## Dimensions
+
+<ul>
+  {% for dimension in site.dimensions %}
+    <li>
+      <a href="{{ dimension.url }}">{{ dimension.dimensionlabel }}</a>
+    </li>
+  {% endfor %}
+</ul>
+
+## Types
+
+<ul>
+  {% for type in site.types %}
+    <li>
+      <a href="{{ type.url }}">{{ type.locallabel }}</a>
+    </li>
+  {% endfor %}
+</ul>

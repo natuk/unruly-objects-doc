@@ -1,0 +1,28 @@
+---
+layout: default
+---
+<div>URI: {{ page.uri }}</div>
+<h1 style="background-color: #{{ page.classcolour }}">Label: {{ page.thinglabel }}</h1>
+<div>CRM class: {{ page.crmtype }}</div>
+<div>
+    {% for ttype in page.type %}
+    <div>type of thing (crm:P2 has type): <a href="{{ ttype }}">
+        {% for type in site.types %}
+            {% if type.uri == ttype %}
+                {{ type.locallabel }}
+            {% endif %}
+        {% endfor %}
+    </a></div>
+    {% endfor %}
+</div>
+<div>
+    {% for material in page.material %}
+    <div>material of thing (crm:P45 consists of): <a href="{{ material }}">
+        {% for type in site.types %}
+            {% if type.uri == material %}
+                {{ type.locallabel }}
+            {% endif %}
+        {% endfor %}
+    </a></div>
+    {% endfor %}
+</div>

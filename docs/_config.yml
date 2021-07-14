@@ -23,7 +23,7 @@ email: a.velios@arts.ac.uk
 description: >- # this means to ignore newlines until "baseurl:"
   Proof of concept website for documenting artefacts through
   blockchain and Linked Data based on the CIDOC-CRM ontology.
-baseurl: "" # the subpath of your site, e.g. /blog
+baseurl: "/unruly-objects-doc" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: a_velios
 github_username:  natuk
